@@ -1,0 +1,5 @@
+<div class="ekart-menu">
+    <a [href]="'#' + menu.toLowerCase().replace(' ', '_')" *ngFor="let menu of mainMenuItems">
+        {{ menu }}
+    </a>
+</div>
