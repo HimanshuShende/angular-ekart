@@ -15,5 +15,11 @@ interface Product {
   styleUrls: ['./container.component.css']
 })
 export class ContainerComponent {
-  listOfString: string[] = ["Ma", "df" , "dfpo", "p[sd", "sdjfgsduy"]
+  listOfString: string[] = ["Ma", "df" , "dfpo", "p[sd", "sdjfgsduy"];
+
+  searchText: string = '';
+
+  setSearchText(value: string){
+    this.searchText = value;
+  }
 }

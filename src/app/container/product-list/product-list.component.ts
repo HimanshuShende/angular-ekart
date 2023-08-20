@@ -1,4 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+interface Product {
+  id: number;
+  name: string;
+  descr: string;
+  brand: string;
+  gender: string;
+  category: string;
+  size: number[];
+  color: string[];
+  price: number;
+  is_in_inventory: boolean;
+  items_left: number;
+  slug: string;
+  imageUri: string;
+  discountPrice?: number;
+
+}
 
 @Component({
   selector: 'product-list',
@@ -6,7 +24,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
-  products = [
+
+  @Input() searchText : string = '';
+
+  products: Product[] = [
     {
       id: 1,
       name: "Id laborum qui incididunt sint tempor reprehenderit labore et.",
@@ -20,7 +41,8 @@ export class ProductListComponent {
       is_in_inventory: false,
       items_left: 3,
       slug: 'nike-rect-infinity-run-flyknit',
-      imageUri: "/assets/images/iphone.png"
+      imageUri: "/assets/images/iphone.png",
+      discountPrice: 75
     },
     {
       id: 2,
@@ -32,7 +54,7 @@ export class ProductListComponent {
       size: [6, 7, 8, 9, 10],
       color: ["White", "Blue", "Black"],
       price: 200,
-      is_in_inventory: false,
+      is_in_inventory: true,
       items_left: 3,
       slug: 'nike-rect-miler',
       imageUri: "/assets/images/iphone.png"
@@ -50,7 +72,28 @@ export class ProductListComponent {
       is_in_inventory: false,
       items_left: 3,
       slug: 'nike-rect-infinity-run-flyknit',
-      imageUri: "/assets/images/iphone.png"
+      imageUri: "/assets/images/iphone.png",
+      discountPrice: 70
     }
   ];
+
+  getTotalProductCount(){
+    return this.products.length
+  }
+  
+  getTotalProductInStockCount(){
+    return this.products.filter(p => p.is_in_inventory === true).length
+  }
+
+  getTotalProductOutOfStockCount(){
+    return this.products.filter(p => p.is_in_inventory === false).length
+  }
+
+  selectedFilterValue: string = 'all';
+
+  onFilterChanged(value: string){
+    console.log("On filter changed :", value);
+    this.selectedFilterValue = value;
+  }
+
 }
